@@ -1,4 +1,3 @@
-const e = require('express');
 const fs = require('fs');
 
 module.exports = app => {
@@ -40,10 +39,12 @@ module.exports = app => {
 
         const pushDB = () => {
 
+            // Assigns id to notes based on array index number
             for (let i = 0; i < notes.length; i++) {
                 notes[i].id = i.toString();;
             }
 
+            // Updates json database with proper formatting
             fs.writeFile("./db/db.json",JSON.stringify(notes, null, "\t"),err => {
                 if (err) throw err;
                 return true;
