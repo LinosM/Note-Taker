@@ -7,10 +7,12 @@ module.exports = app => {
         if (err) throw err;
         var notes = JSON.parse(data);
 
+        // API that returns all notes in the db
         app.get('/api/notes', (req, res) => {
             res.json(notes);
         });
 
+        // API that returns only notes by ID
         app.get('/api/notes/:id', (req, res) => {
             const chosen = req.params.id;
             console.log(chosen);
@@ -22,6 +24,7 @@ module.exports = app => {
             return res.json(false);
         });
 
+        // POST route that receieves a new note and pushes it to the db
         app.post('/api/notes', (req, res) => {
             const newNote = req.body;
 
@@ -31,6 +34,7 @@ module.exports = app => {
             res.json(true)
         });
 
+        // DELETE route that removes selected note by ID and remakes the db
         app.delete("/api/notes/:id", (req, res) => {
             notes.splice(req.params.id, 1);
             pushDB();
